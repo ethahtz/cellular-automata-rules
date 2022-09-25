@@ -1,12 +1,10 @@
 import numpy as np
 from PIL import Image as im
 import random
+import sys
 
 rule = lambda n: [(n & (2 ** i)) >> i for i in range(8)]
-
 decimize = lambda x, y, z: ((x << 2) + (y << 1) + z)
-
-import sys
 
 
 if len(sys.argv) == 4:
@@ -36,15 +34,6 @@ def nextCfg(prev, currRule: list):
 
     return newCfg
 
-def outputFunc(lineToPrint):
-    strToPrint = ""
-    for elem in lineToPrint:
-        if elem == 0:
-            strToPrint += " "
-        else:
-            strToPrint += "#"
-    
-    print(strToPrint)
 
 outputAry = []
 
@@ -54,15 +43,10 @@ if mode:
     init_config = [random.randint(0, 1) for _ in range(LENGTH)]
 else:
     init_config = [0 for _ in range(LENGTH)]
-    # init_config[int(LENGTH/2)] = 1
     init_config[-1] = 1
 
 currLine = init_config
 outputAry.append(currLine)
-
-
-# for _ in range(1, num_itr):
-#     currLine = nextCfg(currLine, rule(ruleID))
 
 for _ in range(1, num_itr):
     currLine = nextCfg(currLine, rule(ruleID))
